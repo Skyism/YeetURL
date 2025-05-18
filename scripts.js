@@ -1,22 +1,22 @@
 var validUserUrl;
 
 function checkURL(userURL){
-    let url;
 
-    try {
-        url = new URL(userURL);
-    }
-    catch (error){
+    var regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?"); 
+    var without_regex = new RegExp("^([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
+    var str = userURL;
+    if (regex.test(str) || without_regex.test(str)) {
+        validUserUrl = userURL;
+        return true;
+    } else {
         return false;
     }
-    validUserUrl = userURL;
-    return true;
 }
 
 function shortenURL(){
     var userURL = document.getElementById("userURL").value;
 
-    if(!checkURL(userURL)){
+    if (!checkURL(userURL)){
         alert("Please enter a valid URL.");
         return;
     } else {

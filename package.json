@@ -1,0 +1,24 @@
+{
+  "name": "yeeturl",
+  "version": "1.0.0",
+  "description": "We eat the url.",
+  "main": "scripts.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Skyism/YeetURL.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Skyism/YeetURL/issues"
+  },
+  "homepage": "https://github.com/Skyism/YeetURL#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
