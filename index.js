@@ -18,4 +18,5 @@ app.get('/', (request, response) => {
     })
 });
 
-app.listen(process.env.PORT || 3111, () => console.log('App available on http://localhost:3111'))
+const PORT = process.env.PORT || 3900;
+app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
