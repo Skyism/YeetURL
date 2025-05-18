@@ -1,5 +1,4 @@
 const {getCollection, client} = require("./dbinit")
-const collection = getCollection();
 const {UrlShortener} = require("./hash")
 
 const shortner = new UrlShortener();
@@ -15,6 +14,8 @@ function checkURL(userURL){
 async function shortenURL(userURL){
 
     // Check if URL already exists in the database
+
+    const collection = getCollection();
 
     let res = await collection.findOne({longurl: userURL}, {_id: 0, hash: 1})
 

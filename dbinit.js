@@ -12,7 +12,8 @@ async function run() {
       // Send a ping to confirm a successful connection
       await client.db("admin").command({ ping: 1 });
       console.log("Pinged your deployment. You successfully connected to MongoDB!");
-      collection = db.collection('urls')
+      collection = db.collection('urls');
+      return collection;
     } finally {
       // Ensures that the client will close when you finish/error
       await client.close();
@@ -20,6 +21,9 @@ async function run() {
 }
 
 function getCollection() {
+  if(!collection) {
+    throw new Error("Database collection not initialized. Call run() first.");
+  }
   return collection;
 }
 
