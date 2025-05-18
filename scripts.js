@@ -1,25 +1,32 @@
-var validUserUrl;
-
 function checkURL(userURL){
 
     var regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?"); 
     var without_regex = new RegExp("^([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
     var str = userURL;
-    if (regex.test(str) || without_regex.test(str)) {
-        validUserUrl = userURL;
-        return true;
-    } else {
-        return false;
-    }
+
+    return (regex.test(str) || without_regex.test(str));
 }
 
-function shortenURL(){
+async function shortenURL(){
     var userURL = document.getElementById("userURL").value;
 
     if (!checkURL(userURL)){
         alert("Please enter a valid URL.");
         return;
     } else {
-        document.getElementById("result").textContent = "temp success";
+        // Valid URL entered
+        //do a post request
+
+        const res = await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({url: userURL})
+        })
+
+        const data = await res.json()
+        document.getElementById("result").textContent = `${location.origin}/${data.hash}`;
+        
+    
+        return;
     }
 }
