@@ -3,6 +3,7 @@ require('dotenv').config();
 
 let uri = process.env.CONSTR
 const client = new MongoClient(uri)
+let collection;
 
 async function run() {
     try {
@@ -11,13 +12,17 @@ async function run() {
       // Send a ping to confirm a successful connection
       await client.db("admin").command({ ping: 1 });
       console.log("Pinged your deployment. You successfully connected to MongoDB!");
-      const collection = db.collection('urls')
+      collection = db.collection('urls')
     } finally {
       // Ensures that the client will close when you finish/error
       await client.close();
     }
 }
 
+function getCollection() {
+  return collection;
+}
 
-module.exports = {run, collection, client}
+
+module.exports = {run, getCollection, client}
 

@@ -12,6 +12,15 @@ const app = express();
 
 app.use(express.static(__dirname));
 
+async function initApp() {
+    try {
+        await run();
+        console.log("Database initialized successfully");
+    } catch (err) {
+        console.log("Error initializing databse");
+        process.exit(1);
+    }
+}
 
 app.get('/', (request, response) => {
     readFile('index.html', 'utf8', (err, html) => {
@@ -25,7 +34,6 @@ app.get('/', (request, response) => {
     })
 });
 
-await run().catch(console.dir)
 const collection = getCollection();
 
 app.post('/', (req, res) => {
