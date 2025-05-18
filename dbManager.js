@@ -11,6 +11,13 @@ function checkURL(userURL){
     return (regex.test(str) || without_regex.test(str));
 }
 
+function normalizeURL(userURL) {
+    if (!/^https?:\/\//i.test(userURL)) {
+        return 'https://' + userURL;
+    }
+    return userURL;
+}
+
 async function shortenURL(userURL){
 
     // Check if URL already exists in the database
@@ -27,13 +34,17 @@ async function shortenURL(userURL){
     //it doesn't, insert into db
 
     let hashed = shortner.shorten(userURL)
+
+    let fixedURL = normalizeURL(userURL)
+    console.log("the fixed url is" + fixedURL);
     
     await collection.insertOne({
-        longurl: userURL,
+        longurl: fixedURL,
         hash: hashed,
         time: Date.now(),
         uses: 0
     });
+    console.log("successful insertion into db");
     
 
     return hashed;

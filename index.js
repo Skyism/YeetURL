@@ -40,32 +40,42 @@ app.use(express.urlencoded({ extended: true })); // For parsing application/x-ww
 app.use(express.static(__dirname));
 
 
-app.post('/', (req, res) => {
+app.post('/', async (req, res) => {
     const userURL = req.body.url;
     if(!checkURL(userURL)){
         return res.status(400).json({ error: "Missing URL" });
     } else {
-        return res.json({hash: shortenURL(userURL)});
+        const hash = await shortenURL(userURL);
+        return res.json({hash: hash});
     }
 })
 
 const PORT = process.env.PORT || 3901;
 
 // Redirection logic
-app.get('/:hash', (req, res) => {
+app.get('/:hash', async (req, res) => {
+    console.log("hash: " + req.params.hash);
     const hash = req.params.hash;
-    try {
-        let longURL = collection.findOne({hash: hash}, {_id: 0, longurl: 1});
-        res.redirect(302, "https://www.youtube.com/");
-        console.log("Ent try");
 
-        console.log("Redirecting user from ${hash} to ${longURL.longurl}");
-        res.redirect(302, longURL.longurl);
+    try {
+        const collection = getCollection()
+        let longURL = await collection.findOne({hash: hash}, {_id: 0, longurl: 1});
+        if (longURL) {
+            console.log("Redirecting user from " + hash + " to " + longURL.longurl);
+            // const newURL = toString(longURL.longurl);
+            await collection.updateOne({hash: hash}, {$inc:{uses: 1}})
+            res.redirect(302, longURL.longurl.toString());
+        } else {
+            res.sendFile(__dirname + "/error.html");
+            console.error("did not find corresponding url");
+        }
     } catch (err) {
         console.error("Error fetching URL mapping:", err);
         res.status(500).send("Internal Server Error");
     }
 });
+
+initApp();
 
 
 app.listen(PORT, () => console.log(`App listening on port ${PORT}`));

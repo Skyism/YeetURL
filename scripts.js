@@ -24,6 +24,7 @@ async function shortenURL(){
         })
 
         const data = await res.json()
+        console.log(`${data.hash}`);
         document.getElementById("result").textContent = `${location.origin}/${data.hash}`;
         
     

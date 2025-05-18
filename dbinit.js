@@ -11,12 +11,12 @@ async function run() {
       await client.connect();
       // Send a ping to confirm a successful connection
       await client.db("admin").command({ ping: 1 });
+      const db = client.db('yeeturl');
       console.log("Pinged your deployment. You successfully connected to MongoDB!");
       collection = db.collection('urls');
-      return collection;
-    } finally {
-      // Ensures that the client will close when you finish/error
-      await client.close();
+    } catch (err) {
+      console.error("Error initializing db:", err);
+      res.status(500).send("Internal Server Error");
     }
 }
 

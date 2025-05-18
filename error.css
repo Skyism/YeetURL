@@ -1,0 +1,30 @@
+* {
+    color: black;
+    font-family: Roboto;
+}
+
+div {
+    display: flex;
+    gap: 3vh;
+    flex-direction: column;
+    align-items: center;
+}
+
+a {
+    align-self: center;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    width: 75vh;
+    max-width: 60vw;
+    align-self: center;
+}
+
+p {
+    font-size: 5vh;
+    align-self: center;
+    text-align: center;
+}
