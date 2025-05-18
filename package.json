@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Skyism/YeetURL#readme",
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "nvm": "^0.0.4"
   }
 }
