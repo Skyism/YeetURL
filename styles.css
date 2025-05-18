@@ -1,0 +1,57 @@
+* {
+    font-family: Roboto;
+}
+
+.banner {
+    display: flex;
+    width: 100vw;
+    padding: 3vh;
+    flex-direction: column;
+    align-items: center;
+}
+
+.textfield {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    gap: 7.5px;
+    max-width: 85vw;
+}
+
+p {
+    color: #000;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    margin-top: 0;
+}
+
+input {
+    width: 500px;
+    max-width: 85vw;
+    font-size: 2.5vh;
+    font-style: normal;
+    font-weight: 400;
+    height: 5vh;
+    margin: 0;
+    padding-left: 1vw;
+}
+
+button {
+    background-color: black;
+    color: white;
+    height: 5.5vh;
+    margin: 0;
+    border-radius: 10px;
+}
+
+#result {
+    border-bottom: 1.5px solid;
+    border-color: rgb(66, 66, 66);
+    width: 500px;
+    max-width: 85vw;
+    padding-left: 0.5vw;
+    margin-top: 10vh;
+}
