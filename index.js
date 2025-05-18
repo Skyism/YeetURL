@@ -53,20 +53,18 @@ const PORT = process.env.PORT || 3901;
 
 // Redirection logic
 app.get('/:hash', (req, res) => {
-    res.redirect(302, "https://www.youtube.com/");
-    // const hash = req.params.hash;
+    const hash = req.params.hash;
+    try {
+        let longURL = collection.findOne({hash: hash}, {_id: 0, longurl: 1});
+        res.redirect(302, "https://www.youtube.com/");
+        console.log("Ent try");
 
-    // try {
-    //     let longURL = collection.findOne({hash: hash}, {_id: 0, longurl: 1});
-
-    //     if (!longURL) return res.status(404).send("Short URL not found");
-
-    //     console.log("Redirecting user from ${hash} to ${longURL.longurl}");
-    //     return res.redirect(302, longURL.longurl);
-    // } catch (err) {
-    //     console.error("Error fetching URL mapping:", error);
-    //     return res.status(500).send("Internal Server Error");
-    // }
+        console.log("Redirecting user from ${hash} to ${longURL.longurl}");
+        res.redirect(302, longURL.longurl);
+    } catch (err) {
+        console.error("Error fetching URL mapping:", err);
+        res.status(500).send("Internal Server Error");
+    }
 });
 
 
